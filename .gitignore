@@ -74,6 +74,15 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# Sensitive or high-churn files
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+
 ### Maven ###
 pom.xml.tag
 pom.xml.releaseBackup

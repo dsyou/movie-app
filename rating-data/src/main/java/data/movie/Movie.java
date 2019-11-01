@@ -1,4 +1,4 @@
-package pl.dsyou.movieapp.data.movie;
+package data.movie;
 
 import lombok.Data;
 
