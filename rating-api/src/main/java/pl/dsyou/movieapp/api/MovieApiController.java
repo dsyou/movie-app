@@ -1,7 +1,8 @@
-package api;
+package pl.dsyou.movieapp.api;
 
 
-import data.movie.MovieService;
+import pl.dsyou.movieapp.data.movie.MovieService;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +19,8 @@ public class MovieApiController {
     }
 
     @GetMapping
-    public void getMoviesTitles() {
-        // get All movies
+    public String getMoviesTitles() {
+        return "Hello World";
     }
 
     @GetMapping

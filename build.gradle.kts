@@ -1,35 +1,40 @@
 import org.gradle.kotlin.dsl.*
 
 plugins {
-    id("org.springframework.boot") version "2.2.0.RELEASE"
-    id("io.spring.dependency-management") version "1.0.8.RELEASE"
     java
     idea
+    id("io.spring.dependency-management") version "1.0.8.RELEASE"
+    id("net.ltgt.apt") version "0.21"
 }
 
 group = "pl.dsyou"
-version = "0.0.1-SNAPSHOT"
+
+ext {
+    var mapstructVersion = "1.3.1.Final"
+    var lombokVersion = "1.18.10"
+}
 
 subprojects {
-    tasks.withType<JavaCompile> {
-        sourceCompatibility = "12"
-        targetCompatibility = "12"
+    group = "pl.dsyou"
+    version = "1.0"
+    apply(plugin = "java")
+    apply(plugin = "net.ltgt.apt")
+    apply(plugin = "io.spring.dependency-management")
+
+    dependencies {
+        compile("org.mapstruct:mapstruct:1.3.1.Final")
+        annotationProcessor("org.mapstruct:mapstruct-processor:1.3.1.Final")
+
+        compileOnly("org.projectlombok:lombok:1.18.10")
+        annotationProcessor("org.projectlombok:lombok:1.18.10")
+
+        "testImplementation"("junit:junit:4.12")
     }
 }
 
 configure<JavaPluginConvention> {
     sourceCompatibility = JavaVersion.VERSION_12
 }
-
-//configurations {
-//    developmentOnly
-//    runtimeClasspath {
-//        extendsFrom developmentOnly
-//    }
-//    compileOnly {
-//        extendsFrom annotationProcessor
-//    }
-//}
 
 repositories {
     mavenCentral()
@@ -40,17 +45,18 @@ dependencies {
     compile(project(":rating-api"))
     compile(project(":rating-data"))
 
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
-    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+
+
+//    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+//
+//    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-web")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude("org.junit.vintage", "junit-vintage-engine")
-    }
-    testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
+//
+//    testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
+
+
 }
 
 
