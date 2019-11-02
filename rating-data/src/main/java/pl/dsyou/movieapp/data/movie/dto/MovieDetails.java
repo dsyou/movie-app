@@ -11,5 +11,5 @@ public class MovieDetails {
     private String title;
     private String genre;
     private String productionDate;
-    private float rank;
+    private float score;
 }

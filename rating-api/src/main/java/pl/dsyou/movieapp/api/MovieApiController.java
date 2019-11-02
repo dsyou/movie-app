@@ -1,6 +1,6 @@
 package pl.dsyou.movieapp.api;
 
-
+import pl.dsyou.movieapp.config.mapper.CentralConfigMapper;
 import pl.dsyou.movieapp.data.movie.MovieService;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class MovieApiController {
 
     private final MovieService movieService;
+
+    CentralConfigMapper centralConfigMapper;
 
     public MovieApiController(MovieService movieService) {
         this.movieService = movieService;

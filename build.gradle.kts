@@ -29,6 +29,7 @@ subprojects {
         annotationProcessor("org.projectlombok:lombok:1.18.10")
 
         "testImplementation"("junit:junit:4.12")
+        testCompile("org.assertj:assertj-core:3.6.1")
     }
 }
 
@@ -45,15 +46,10 @@ dependencies {
     compile(project(":rating-api"))
     compile(project(":rating-data"))
 
-
-
-
-//    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-//
-//    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-web")
 
-//
+//    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+//    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 //    testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
 
 

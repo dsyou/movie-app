@@ -1,14 +1,15 @@
 plugins {
     id ("java")
+    id("io.spring.dependency-management")
 }
 
 group ="pl.dsyou"
-version = "0.0.1-SNAPSHOT"
+
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-
+    compile(project(":rating-core"))
 }
