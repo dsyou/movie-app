@@ -1,15 +1,15 @@
 plugins {
     id ("java")
+    id("io.spring.dependency-management")
+    id("org.springframework.boot")
 }
-
-group ="pl.dsyou"
-version = "0.0.1-SNAPSHOT"
-
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-
+    tasks.getByName<Jar>("bootJar") {
+        enabled = false
+    }
 }

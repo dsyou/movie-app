@@ -5,5 +5,5 @@ public interface MovieService {
 
     void getMoviesRanks();
 
-    void updateMovieRank();
+    void addMovieRank();
 }

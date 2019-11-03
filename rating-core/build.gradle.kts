@@ -1,27 +1,25 @@
+
 plugins {
     id ("java")
-    id("org.springframework.boot") version "2.2.0.RELEASE"
+    id("io.spring.dependency-management")
+    id("org.springframework.boot")
 }
-
-group ="pl.dsyou"
-version = "0.0.1-SNAPSHOT"
-
 
 repositories {
     mavenCentral()
 }
 
-dependencies {
+tasks.getByName<Jar>("bootJar") {
+    enabled = false
+}
 
-    compile ("org.springframework.boot:spring-boot-starter-web:2.2.0.RELEASE")
+tasks.getByName<Jar>("jar") {
+    enabled = true
+}
+
+dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude("org.junit.vintage", "junit-vintage-engine")
-    }
-}
-
-dependencyManagement {
-    imports {
-        mavenBom(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
     }
 }

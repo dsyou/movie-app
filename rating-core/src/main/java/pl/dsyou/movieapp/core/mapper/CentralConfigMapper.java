@@ -1,4 +1,4 @@
-package pl.dsyou.movieapp.config.mapper;
+package pl.dsyou.movieapp.core.mapper;
 
 import org.mapstruct.MapperConfig;
 import org.mapstruct.ReportingPolicy;

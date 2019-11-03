@@ -29,9 +29,9 @@ public class MovieMapperShould {
         MovieDetails movieDetails = movieMapper.toMovieDetails(movie);
 
         // then
-        assertThat(movieDetails.getTitle()).isEqualTo("");
-        assertThat(movieDetails.getGenre()).isEqualTo("");
-        assertThat(movieDetails.getProductionDate()).isEqualTo("");
-        assertThat(movieDetails.getScore()).isEqualTo("");
+        assertThat(movieDetails.getTitle()).isEqualTo(title);
+        assertThat(movieDetails.getGenre()).isEqualTo(genre);
+        assertThat(movieDetails.getProductionDate()).isEqualTo(productionDate);
+        assertThat(movieDetails.getScore()).isEqualTo(rank);
     }
 }

@@ -1,38 +1,33 @@
 package pl.dsyou.movieapp.api;
 
-import pl.dsyou.movieapp.config.mapper.CentralConfigMapper;
-import pl.dsyou.movieapp.data.movie.MovieService;
+
+import lombok.RequiredArgsConstructor;
+
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.dsyou.movieapp.data.movie.MovieService;
 
 @RestController
-@RequestMapping("/movies")
+@RequestMapping("/")
+@RequiredArgsConstructor
 public class MovieApiController {
 
     private final MovieService movieService;
 
-    CentralConfigMapper centralConfigMapper;
-
-    public MovieApiController(MovieService movieService) {
-        this.movieService = movieService;
-    }
-
     @GetMapping
     public String getMoviesTitles() {
-        return "Hello World";
+        return "Hello World !";
     }
 
-    @GetMapping
-    public void getMoviesRanks() {
-        // get All movies ranks
-    }
+//    @GetMapping
+//    public void getMoviesRanks() {
+//    }
 
     @PostMapping
     public void addMovieRank() {
-        // add movie to rank
     }
 
 }

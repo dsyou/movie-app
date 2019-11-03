@@ -5,10 +5,11 @@ import org.mapstruct.Mapping;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.factory.Mappers;
 
+
 import pl.dsyou.movieapp.data.movie.dto.MovieDetails;
 import pl.dsyou.movieapp.data.movie.mongo.model.Movie;
 
-import pl.dsyou.movieapp.config.mapper;
+import pl.dsyou.movieapp.core.mapper.CentralConfigMapper;
 
 @Mapper(
         config = CentralConfigMapper.class,
