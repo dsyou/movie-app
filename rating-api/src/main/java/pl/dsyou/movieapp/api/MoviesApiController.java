@@ -1,33 +1,34 @@
 package pl.dsyou.movieapp.api;
 
-
 import lombok.RequiredArgsConstructor;
-
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import pl.dsyou.movieapp.data.movie.MovieService;
+import pl.dsyou.movieapp.data.movie.dto.MovieDetails;
+import pl.dsyou.movieapp.data.movie.dto.MovieRankAddition;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/movies")
 @RequiredArgsConstructor
 public class MoviesApiController {
 
     private final MovieService movieService;
 
     @GetMapping
-    public String getMoviesTitles() {
-        return "Hello World !";
+    @ResponseStatus(HttpStatus.OK)
+    public List<MovieDetails> getMoviesTitles() {
+        return movieService.getMovies();
     }
 
-//    @GetMapping
-//    public void getMoviesRanks() {
-//    }
-
-    @PostMapping
-    public void addMovieRank() {
+    @PostMapping("{id}/ranks")
+    @ResponseStatus(HttpStatus.OK)
+    public void addMovieRank(
+            @PathVariable long id, @RequestBody @Valid MovieRankAddition movieRankAddition
+    ) {
+        movieService.getMoviesRanks(id, movieRankAddition);
     }
 
 }
