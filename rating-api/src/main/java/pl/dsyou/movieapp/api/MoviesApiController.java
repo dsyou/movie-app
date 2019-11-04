@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/movies")
+@RequestMapping("/api/v1/movies")
 @RequiredArgsConstructor
 public class MoviesApiController {
 
@@ -28,7 +28,7 @@ public class MoviesApiController {
     public void addMovieRank(
             @PathVariable long id, @RequestBody @Valid MovieRankAddition movieRankAddition
     ) {
-        movieService.getMoviesRanks(id, movieRankAddition);
+        movieService.addMovieRank(id, movieRankAddition);
     }
 
 }
