@@ -25,4 +25,5 @@ dependencyManagement {
 
 dependencies {
     compile(project(":rating-core"))
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 }
