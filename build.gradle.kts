@@ -33,6 +33,8 @@ subprojects {
     dependencies {
         compile("org.springframework:spring-context")
 
+        compile("javax.validation:validation-api:2.0.1.Final")
+
         compile("org.mapstruct:mapstruct:1.3.1.Final")
         annotationProcessor("org.mapstruct:mapstruct-processor:1.3.1.Final")
 
