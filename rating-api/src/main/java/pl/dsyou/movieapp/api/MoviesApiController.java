@@ -13,7 +13,7 @@ import pl.dsyou.movieapp.data.movie.MovieService;
 @RestController
 @RequestMapping("/")
 @RequiredArgsConstructor
-public class MovieApiController {
+public class MoviesApiController {
 
     private final MovieService movieService;
 
