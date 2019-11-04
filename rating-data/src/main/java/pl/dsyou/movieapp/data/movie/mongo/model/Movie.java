@@ -1,7 +1,10 @@
 package pl.dsyou.movieapp.data.movie.mongo.model;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collation = "movies")
 @Builder
 @Getter
 @Setter
@@ -9,6 +12,8 @@ import lombok.*;
 @AllArgsConstructor
 public class Movie {
 
+    @Id
+    private String id;
     private String title;
     private String genre;
 
