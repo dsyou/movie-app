@@ -17,7 +17,7 @@ public class Movie {
     private String title;
     private String genre;
 
-    private String productionDate; // todo dj  () -> date
+    private String productionDate; // todo dj  () -> date  DD-MM-RRRR
 
     private float rank; // todo dj from 0 to 10
 }

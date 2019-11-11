@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.dsyou.movieapp.data.movie.dto.MovieDetails;
 import pl.dsyou.movieapp.data.movie.dto.MovieRankAddition;
+import pl.dsyou.movieapp.data.movie.dto.MovieRegistration;
+import pl.dsyou.movieapp.data.movie.dto.MovieUpdate;
 import pl.dsyou.movieapp.data.movie.mongo.MovieRepository;
 import pl.dsyou.movieapp.data.movie.mongo.model.Movie;
 
@@ -27,16 +29,26 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public void getMoviesRanks(long id, MovieRankAddition movieRankAddition) {
-        // get only movies ranks
+    @Transactional
+    public void addMovieRank(long id, MovieRankAddition movieRankAddition) {
+        // todo crate Controller Advice
+        Movie movie = movieRepository.findById(String.valueOf(id)).orElseThrow(null);
+        movie.setRank(movieRankAddition.getRank());
+        movieRepository.save(movie);
     }
 
     @Override
-    @Transactional
-    public void addMovieRank(String id, MovieRankAddition movieRankAddition) {
-        // todo crate Controller Advice
-        Movie movie = movieRepository.findById(id).orElseThrow(null);
-        movie.setRank(movieRankAddition.getRank());
-        movieRepository.save(movie);
+    public void createMovie(MovieRegistration movieRegistration) {
+
+    }
+
+    @Override
+    public void editMovie(MovieUpdate movieUpdate) {
+
+    }
+
+    @Override
+    public void deleteMovie(long id) {
+
     }
 }
