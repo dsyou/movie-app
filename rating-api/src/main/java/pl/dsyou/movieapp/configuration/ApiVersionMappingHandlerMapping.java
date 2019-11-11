@@ -4,7 +4,6 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.servlet.mvc.condition.*;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
-import pl.dsyou.movieapp.core.ApiVersion;
 
 import javax.validation.constraints.NotNull;
 import java.lang.reflect.Method;
