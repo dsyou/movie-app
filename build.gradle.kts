@@ -43,6 +43,8 @@ subprojects {
 
         testImplementation("junit:junit:4.12")
         testCompile("org.assertj:assertj-core:3.6.1")
+        testCompile("org.mockito:mockito-core:3.1.0")
+
     }
 }
 
