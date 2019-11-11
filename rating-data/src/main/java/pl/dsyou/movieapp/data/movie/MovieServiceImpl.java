@@ -10,6 +10,9 @@ import pl.dsyou.movieapp.data.movie.exception.MovieNotFoundException;
 import pl.dsyou.movieapp.data.movie.mongo.MovieRepository;
 import pl.dsyou.movieapp.data.movie.mongo.model.movie.Movie;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,7 +31,7 @@ public class MovieServiceImpl implements MovieService {
                 .orElseThrow(MovieNotFoundException::new);
     }
 
-    private Movie getMovieById(String id){
+    private Movie getMovieById(String id) {
         return movieRepository.findById(id).orElseThrow(MovieNotFoundException::new);
     }
 
@@ -48,7 +51,8 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public MovieDetails createMovie(MovieRegistration movieRegistration) {
+    public MovieDetails createMovie(MovieRegistration movieRegistration) throws ParseException {
+
         final Movie movie = movieMapper.toMovie(movieRegistration);
         movieRepository.save(movie);
         return null;
