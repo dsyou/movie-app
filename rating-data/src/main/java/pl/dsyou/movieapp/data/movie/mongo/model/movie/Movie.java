@@ -1,23 +1,21 @@
-package pl.dsyou.movieapp.data.movie.mongo.model;
+package pl.dsyou.movieapp.data.movie.mongo.model.movie;
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import pl.dsyou.movieapp.data.movie.mongo.model.core.MongoEntity;
 
-@Document(collation = "movies")
+@Document(collation = "movie")
 @Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Movie {
+public class Movie extends MongoEntity {
 
-    @Id
-    private String id;
     private String title;
     private String genre;
 
     private String productionDate; // todo dj  () -> date  DD-MM-RRRR
 
-    private float rank; // todo dj from 0 to 10
+    private float rank;
 }

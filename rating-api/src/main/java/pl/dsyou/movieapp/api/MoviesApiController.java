@@ -19,27 +19,32 @@ public class MoviesApiController {
 
     private final MovieService movieService;
 
+    @GetMapping("{id}")
+    public MovieDetails getMovie(@PathVariable String id) {
+        return movieService.getMovie(id);
+    }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<MovieDetails> getMoviesTitles() {
+    public List<MovieDetails> getMovies() {
         return movieService.getMovies();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public void createMovie(@Valid MovieRegistration movieRegistration) {
+    public void createMovie(@RequestBody @Valid MovieRegistration movieRegistration) {
         movieService.createMovie(movieRegistration);
     }
 
-    @PutMapping
+    @PutMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void editMovie(@Valid MovieUpdate movieUpdate) {
-        movieService.editMovie(movieUpdate);
+    public void editMovie(@PathVariable String id, @RequestBody @Valid MovieUpdate movieUpdate) {
+        movieService.editMovie(movieUpdate, id);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteMovie(@PathVariable("id") long id) {
+    public void deleteMovie(@PathVariable("id") String id) {
         movieService.deleteMovie(id);
     }
 

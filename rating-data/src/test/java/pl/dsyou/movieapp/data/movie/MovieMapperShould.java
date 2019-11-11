@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import org.junit.Test;
 import pl.dsyou.movieapp.data.movie.dto.MovieDetails;
-import pl.dsyou.movieapp.data.movie.mongo.model.Movie;
+import pl.dsyou.movieapp.data.movie.mongo.model.movie.Movie;
 
 public class MovieMapperShould {
 
@@ -32,6 +32,6 @@ public class MovieMapperShould {
         assertThat(movieDetails.getTitle()).isEqualTo(title);
         assertThat(movieDetails.getGenre()).isEqualTo(genre);
         assertThat(movieDetails.getProductionDate()).isEqualTo(productionDate);
-        assertThat(movieDetails.getScore()).isEqualTo(rank);
+        assertThat(movieDetails.getRank()).isEqualTo(rank);
     }
 }

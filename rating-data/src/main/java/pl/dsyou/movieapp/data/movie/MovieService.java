@@ -14,7 +14,9 @@ public interface MovieService {
 
     void createMovie(MovieRegistration movieRegistration);
 
-    void editMovie(MovieUpdate movieUpdate);
+    void editMovie(MovieUpdate movieUpdate, String id);
 
-    void deleteMovie(long id);
+    void deleteMovie(String id);
+
+    MovieDetails getMovie(String id);
 }
