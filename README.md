@@ -1,6 +1,7 @@
 # movie-app
 Rating Service
 
+:warning: :baby: young pre 1.0 project 
 
  - Readme.md jak uruchomić projekt (w języku angielskim)
 
