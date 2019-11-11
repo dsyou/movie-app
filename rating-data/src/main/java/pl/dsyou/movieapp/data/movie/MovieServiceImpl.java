@@ -2,7 +2,6 @@ package pl.dsyou.movieapp.data.movie;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import pl.dsyou.movieapp.data.movie.dto.MovieDetails;
 import pl.dsyou.movieapp.data.movie.dto.MovieRankAddition;
 import pl.dsyou.movieapp.data.movie.dto.MovieRegistration;
@@ -12,6 +11,7 @@ import pl.dsyou.movieapp.data.movie.mongo.MovieRepository;
 import pl.dsyou.movieapp.data.movie.mongo.model.movie.Movie;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,6 +28,10 @@ public class MovieServiceImpl implements MovieService {
                 .orElseThrow(MovieNotFoundException::new);
     }
 
+    private Movie getMovieById(String id){
+        return movieRepository.findById(id).orElseThrow(MovieNotFoundException::new);
+    }
+
     @Override
     public List<MovieDetails> getMovies() {
         return movieRepository.findAll()
@@ -37,30 +41,31 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public void addMovieRank(long id, MovieRankAddition movieRankAddition) {
-        // todo crate Controller Advice
-        Movie movie = movieRepository.findById(String.valueOf(id)).orElseThrow(MovieNotFoundException::new);
+    public void addMovieRank(MovieRankAddition movieRankAddition, String movieId) {
+        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieNotFoundException::new);
         movie.setRank(movieRankAddition.getRank());
         movieRepository.save(movie);
     }
 
     @Override
-    @Transactional
-    public void createMovie(MovieRegistration movieRegistration) {
+    public MovieDetails createMovie(MovieRegistration movieRegistration) {
         final Movie movie = movieMapper.toMovie(movieRegistration);
         movieRepository.save(movie);
+        return null;
     }
 
     @Override
-    public void editMovie(MovieUpdate movieUpdate, String id) {
-        final Movie movie = movieMapper.toMovie(movieUpdate);
-        movieRepository.findById(id);
-        movieRepository.save(movie);
+    public MovieDetails editMovie(MovieUpdate movieUpdate, String id) {
+        final Movie movie = getMovieById(id);
+
+        return Optional.of(movieRepository.save(movie))
+                .map(movieMapper::toMovieDetails)
+                .get();
     }
 
     @Override
     public void deleteMovie(String movieId) {
-        movieRepository.deleteById(String.valueOf(movieId));
+        movieRepository.deleteById(movieId);
     }
 
 }

@@ -53,9 +53,9 @@ public class MoviesApiController {
     @PostMapping("{id}/ranks")
     @ResponseStatus(HttpStatus.OK)
     public void addMovieRank(
-            @PathVariable long id, @RequestBody @Valid MovieRankAddition movieRankAddition
+            @PathVariable("id") String id, @RequestBody @Valid MovieRankAddition movieRankAddition
     ) {
-        movieService.addMovieRank(id, movieRankAddition);
+        movieService.addMovieRank(movieRankAddition, id);
     }
 
 }

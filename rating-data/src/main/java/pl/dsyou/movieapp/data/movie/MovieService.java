@@ -10,13 +10,14 @@ import java.util.List;
 public interface MovieService {
     List<MovieDetails> getMovies();
 
-    void addMovieRank(long id, MovieRankAddition movieRankAddition);
+    MovieDetails getMovie(String id);
 
-    void createMovie(MovieRegistration movieRegistration);
+    void addMovieRank(MovieRankAddition movieRankAddition, String id);
 
-    void editMovie(MovieUpdate movieUpdate, String id);
+    MovieDetails createMovie(MovieRegistration movieRegistration);
+
+    MovieDetails editMovie(MovieUpdate movieUpdate, String id);
 
     void deleteMovie(String id);
 
-    MovieDetails getMovie(String id);
 }
