@@ -3,6 +3,7 @@ package pl.dsyou.movieapp.api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import pl.dsyou.movieapp.core.ApiVersion;
 import pl.dsyou.movieapp.data.movie.MovieService;
 import pl.dsyou.movieapp.data.movie.dto.MovieDetails;
 import pl.dsyou.movieapp.data.movie.dto.MovieRankAddition;
@@ -13,7 +14,8 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/movies")
+@ApiVersion(1)
+@RequestMapping("/movies")
 @RequiredArgsConstructor
 public class MoviesApiController {
 
