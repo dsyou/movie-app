@@ -6,7 +6,7 @@ import pl.dsyou.movieapp.data.movie.mongo.model.core.MongoEntity;
 
 import java.util.Date;
 
-@Document(collation = "movie")
+@Document
 @Builder
 @Getter
 @Setter
@@ -17,7 +17,7 @@ public class Movie extends MongoEntity {
     private String title;
     private String genre;
 
-    private Date productionDate; // todo dj  () -> date  DD-MM-RRRR
+    private Date productionDate;
 
     private float rank;
 }

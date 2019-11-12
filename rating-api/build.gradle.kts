@@ -16,18 +16,24 @@ dependencyManagement {
     }
 }
 
-springBoot {
-    mainClassName = "pl.dsyou.movieapp.MovieAppApplication"
-}
-
 tasks.getByName<BootJar>("bootJar") {
     mainClassName = "pl.dsyou.movieapp.MovieAppApplication"
 }
 
+springBoot {
+    mainClassName = "pl.dsyou.movieapp.MovieAppApplication"
+}
+
+tasks.getByName<Jar>("jar") {
+    enabled = true
+}
+
+tasks.getByName<Jar>("bootJar") {
+        enabled = false
+}
+
 dependencies {
     compile(project(":rating-data"))
-
-    compile ("org.springframework.boot:spring-boot-starter-web:2.2.0.RELEASE")
     compile("org.springframework:spring-webmvc:5.2.0.RELEASE")
-
 }
+

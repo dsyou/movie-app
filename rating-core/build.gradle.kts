@@ -1,3 +1,4 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     id ("java")
@@ -17,9 +18,27 @@ tasks.getByName<Jar>("jar") {
     enabled = true
 }
 
+tasks.getByName<BootJar>("bootJar") {
+    manifest {
+        attributes("Start-Class" to "pl.dsyou.movieapp.core.MovieAppApplication")
+    }
+}
+
+tasks.getByName<BootJar>("bootJar") {
+    mainClassName = "pl.dsyou.movieapp.MovieAppApplication"
+}
+
+springBoot {
+    mainClassName = "pl.dsyou.movieapp.MovieAppApplication"
+}
+
+dependencyManagement {
+    imports {
+        mavenBom(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
+    }
+}
+
 dependencies {
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude("org.junit.vintage", "junit-vintage-engine")
-    }
+    compile ("org.springframework.boot:spring-boot-starter-web:2.2.0.RELEASE")
 }
