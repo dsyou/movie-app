@@ -2,6 +2,7 @@ package pl.dsyou.movieapp.data.movie;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.factory.Mappers;
 import pl.dsyou.movieapp.core.mapper.CentralConfigMapper;
@@ -39,7 +40,7 @@ public abstract class MovieMapper {
     @Mapping(target = "genre", source = "genre")
     @Mapping(target = "productionDate", source = "productionDate")
     @Mapping(target = "rank", ignore = true)
-    public abstract Movie toMovie(MovieUpdate movieUpdate);
+    public abstract void toMovie(MovieUpdate movieUpdate ,@MappingTarget Movie movie);
 
     @SuppressWarnings("unused")
     public Date productionDateFromString(String productionDate) throws ParseException {

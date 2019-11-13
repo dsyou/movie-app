@@ -1,19 +1,26 @@
 package pl.dsyou.movieapp.data.movie;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.dsyou.movieapp.data.movie.dto.MovieDetails;
+import pl.dsyou.movieapp.data.movie.dto.MovieRegistration;
+import pl.dsyou.movieapp.data.movie.dto.MovieUpdate;
 import pl.dsyou.movieapp.data.movie.mongo.MovieRepository;
 import pl.dsyou.movieapp.data.movie.mongo.model.movie.Movie;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class MovieServiceShould {
@@ -46,21 +53,30 @@ public class MovieServiceShould {
     }
 
     @Test
-    public void getMovie() {
+    public void getMovie() throws ParseException {
         // given
+        final Date productionDate = new SimpleDateFormat("dd-MM-yyyy").parse("01-01-1999");
+        final Movie movie = new Movie("Matrix", "Action", productionDate, 10f);
+        movie.setId("b846ca17-decf-4bb4-a127-ec1931dc35fa");
+        when(movieRepository.findById("b846ca17-decf-4bb4-a127-ec1931dc35fa")).thenReturn(Optional.of(movie));
 
         // when
-//        movieService.getMovie("ADD KEY");
+        final MovieDetails result = movieService.getMovie("b846ca17-decf-4bb4-a127-ec1931dc35fa");
 
         // then
+        assertThat(result.getId()).isEqualTo("b846ca17-decf-4bb4-a127-ec1931dc35fa");
+        assertThat(result.getProductionDate()).isEqualTo("01-01-1999");
+        assertThat(result.getRank()).isEqualTo(10f);
+        assertThat(result.getTitle()).isEqualTo("Matrix");
     }
 
     @Test
+    @Disabled
     public void addMovieRank() {
         // given
 
         // when
-//        movieService.addMovieRank();
+        // todo arithmetic mean
 
         // then
     }
@@ -68,31 +84,56 @@ public class MovieServiceShould {
     @Test
     public void createMovie() throws ParseException {
         // given
+        var movieRegistration = new MovieRegistration("Matrix", "Action", "01-01-1999");
+        var productionDate = new SimpleDateFormat("dd-MM-yyyy").parse("01-01-1999");
+        var movie = new Movie("Matrix", "Action", productionDate, 10f);
+        when(movieRepository.save(any())).thenReturn(movie);
 
         // when
-
-//        movieService.createMovie(new MovieRegistration("Matrix", "Action", sDate1));
+        final MovieDetails result = movieService.createMovie(movieRegistration);
 
         // then
+        assertThat(result.getTitle()).isEqualTo("Matrix");
+        assertThat(result.getGenre()).isEqualTo("Action");
+        assertThat(result.getProductionDate()).isEqualTo("01-01-1999");
+        assertThat(result.getRank()).isEqualTo(10f);
     }
 
     @Test
-    public void editMovie() {
+    public void editMovie() throws ParseException {
         // given
+        var productionDate = new SimpleDateFormat("dd-MM-yyyy").parse("01-01-1999");
+        var movie = new Movie("Matrix", "Action", productionDate, 10f);
+        movie.setId("2f54589c-f5aa-481d-b4cc-ca4234876db3");
+        var movieUpdate = new MovieUpdate("Terminator", "Porn", "01-01-1984");
+
+        when(movieRepository.findById("2f54589c-f5aa-481d-b4cc-ca4234876db3")).thenReturn(Optional.of(movie));
+        var updatedDate = new SimpleDateFormat("dd-MM-yyyy").parse("01-01-1984");
+        when(movieRepository.save(any())).thenReturn(new Movie("Terminator", "Porn", updatedDate, 10f));
 
         // when
-//        movieService.editMovie();
+        final MovieDetails result = movieService.editMovie(movieUpdate, "2f54589c-f5aa-481d-b4cc-ca4234876db3");
 
         // then
+        assertThat(result.getTitle()).isEqualTo("Terminator");
+        assertThat(result.getGenre()).isEqualTo("Porn");
+        assertThat(result.getProductionDate()).isEqualTo("01-01-1984");
+        assertThat(result.getRank()).isEqualTo(10f);
     }
 
     @Test
-    public void deleteMovie() {
+    public void deleteMovie() throws ParseException {
         // given
+        var productionDate = new SimpleDateFormat("dd-MM-yyyy").parse("01-01-1999");
+        var movie = new Movie("Matrix", "Action", productionDate, 10f);
+        var movieId = "2f54589c-f5aa-481d-b4cc-ca4234876db3";
+        movie.setId(movieId);
+        doNothing().when(movieRepository).deleteById(movieId);
 
         // when
-//        movieService.deleteMovie();
+        movieService.deleteMovie(movieId);
 
         // then
+        verify(movieRepository, times(1)).deleteById(movieId);
     }
 }

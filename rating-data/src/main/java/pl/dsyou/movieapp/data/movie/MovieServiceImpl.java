@@ -11,8 +11,6 @@ import pl.dsyou.movieapp.data.movie.mongo.MovieRepository;
 import pl.dsyou.movieapp.data.movie.mongo.model.movie.Movie;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -46,21 +44,23 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public void addMovieRank(MovieRankAddition movieRankAddition, String movieId) {
         Movie movie = movieRepository.findById(movieId).orElseThrow(MovieNotFoundException::new);
+
+
         movie.setRank(movieRankAddition.getRank());
         movieRepository.save(movie);
     }
 
     @Override
     public MovieDetails createMovie(MovieRegistration movieRegistration) throws ParseException {
-
         final Movie movie = movieMapper.toMovie(movieRegistration);
-        movieRepository.save(movie);
-        return null;
+        return Optional.of(movieRepository.save(movie))
+                .map(movieMapper::toMovieDetails).get();
     }
 
     @Override
     public MovieDetails editMovie(MovieUpdate movieUpdate, String id) {
-        final Movie movie = getMovieById(id);
+        Movie movie = getMovieById(id);
+        movieMapper.toMovie(movieUpdate, movie);
 
         return Optional.of(movieRepository.save(movie))
                 .map(movieMapper::toMovieDetails)

@@ -46,8 +46,8 @@ public class MoviesApiController {
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void editMovie(@PathVariable String id, @RequestBody @Valid MovieUpdate movieUpdate) {
-        movieService.editMovie(movieUpdate, id);
+    public MovieDetails editMovie(@PathVariable String id, @RequestBody @Valid MovieUpdate movieUpdate) {
+        return movieService.editMovie(movieUpdate, id);
     }
 
     @DeleteMapping("{id}")
