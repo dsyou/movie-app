@@ -2,10 +2,10 @@ package pl.dsyou.movieapp.data.movie.mongo;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import pl.dsyou.movieapp.data.movie.exception.MovieNotFoundException;
 import pl.dsyou.movieapp.data.movie.mongo.model.movie.Movie;
 
@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @DataMongoTest
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class MovieRepositoryShould {
 
     @Autowired

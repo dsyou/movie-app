@@ -10,7 +10,6 @@ import pl.dsyou.movieapp.data.movie.exception.MovieNotFoundException;
 import pl.dsyou.movieapp.data.movie.mongo.MovieRepository;
 import pl.dsyou.movieapp.data.movie.mongo.model.movie.Movie;
 
-import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,15 +43,13 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public void addMovieRank(MovieRankAddition movieRankAddition, String movieId) {
         Movie movie = movieRepository.findById(movieId).orElseThrow(MovieNotFoundException::new);
-
-
         movie.setRank(movieRankAddition.getRank());
         movieRepository.save(movie);
     }
 
     @Override
-    public MovieDetails createMovie(MovieRegistration movieRegistration) throws ParseException {
-        final Movie movie = movieMapper.toMovie(movieRegistration);
+    public MovieDetails createMovie(MovieRegistration movieRegistration) {
+        Movie movie = movieMapper.toMovie(movieRegistration);
         return Optional.of(movieRepository.save(movie))
                 .map(movieMapper::toMovieDetails).get();
     }

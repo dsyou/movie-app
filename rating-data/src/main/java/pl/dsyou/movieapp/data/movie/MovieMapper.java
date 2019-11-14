@@ -9,6 +9,7 @@ import pl.dsyou.movieapp.core.mapper.CentralConfigMapper;
 import pl.dsyou.movieapp.data.movie.dto.MovieDetails;
 import pl.dsyou.movieapp.data.movie.dto.MovieRegistration;
 import pl.dsyou.movieapp.data.movie.dto.MovieUpdate;
+import pl.dsyou.movieapp.data.movie.exception.MovieDateParseException;
 import pl.dsyou.movieapp.data.movie.mongo.model.movie.Movie;
 
 import java.text.ParseException;
@@ -43,8 +44,12 @@ public abstract class MovieMapper {
     public abstract void toMovie(MovieUpdate movieUpdate ,@MappingTarget Movie movie);
 
     @SuppressWarnings("unused")
-    public Date productionDateFromString(String productionDate) throws ParseException {
-        return new SimpleDateFormat("dd-MM-yyyy").parse(productionDate);
+    public Date productionDateFromString(String productionDate) {
+        try { // todo dj go to vavr !
+            return new SimpleDateFormat("dd-MM-yyyy").parse(productionDate);
+        } catch (ParseException ex) {
+           throw new MovieDateParseException();
+        }
     }
 
     @SuppressWarnings("unused")

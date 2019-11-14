@@ -9,10 +9,8 @@ import pl.dsyou.movieapp.data.movie.dto.MovieDetails;
 import pl.dsyou.movieapp.data.movie.dto.MovieRankAddition;
 import pl.dsyou.movieapp.data.movie.dto.MovieRegistration;
 import pl.dsyou.movieapp.data.movie.dto.MovieUpdate;
-import pl.dsyou.movieapp.data.movie.exception.MovieDateParseException;
 
 import javax.validation.Valid;
-import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -36,12 +34,8 @@ public class MoviesApiController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public void createMovie(@RequestBody @Valid MovieRegistration movieRegistration) {
-        try {
-            movieService.createMovie(movieRegistration);
-        } catch (ParseException e) {
-            throw new MovieDateParseException();
-        }
+    public MovieDetails createMovie(@RequestBody @Valid MovieRegistration movieRegistration) {
+        return movieService.createMovie(movieRegistration);
     }
 
     @PutMapping("{id}")

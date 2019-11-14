@@ -50,7 +50,7 @@ subprojects {
         compileOnly("org.projectlombok:lombok:$lombokVersion")
         annotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
-        testImplementation("junit:junit:4.12")
+//        testImplementation("junit:junit:4.12")
         testImplementation("org.springframework.boot:spring-boot-starter-test") {
             exclude("org.junit.vintage", "junit-vintage-engine")
         }

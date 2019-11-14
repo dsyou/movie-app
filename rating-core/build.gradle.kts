@@ -28,6 +28,10 @@ tasks.getByName<BootJar>("bootJar") {
     mainClassName = "pl.dsyou.movieapp.MovieAppApplication"
 }
 
+tasks.test {
+    useJUnitPlatform()
+}
+
 springBoot {
     mainClassName = "pl.dsyou.movieapp.MovieAppApplication"
 }
