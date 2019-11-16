@@ -16,6 +16,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
 
 @DataMongoTest
 @ExtendWith(SpringExtension.class)
@@ -51,11 +52,12 @@ public class MovieRepositoryShould {
         // given
         var productionDate = new SimpleDateFormat("dd-MM-yyyy").parse("01-01-1999");
         var movie = new Movie("Matrix", "Action", productionDate, 10f);
-        movie.setId("cacb9065-0f23-46b4-9506-8a8cda6c17f3");
+        String movieId = "cacb9065-0f23-46b4-9506-8a8cda6c17f3";
+        movie.setId(movieId);
         movieRepository.save(movie);
 
         // when
-        var result = movieRepository.findById("cacb9065-0f23-46b4-9506-8a8cda6c17f3").orElseThrow(MovieNotFoundException::new);
+        var result = movieRepository.findById(movieId).orElseThrow(() -> new MovieNotFoundException(movieId));
 
         // then
         assertThat(result).isNotNull();
@@ -73,7 +75,7 @@ public class MovieRepositoryShould {
         movieRepository.save(movie);
 
         // expect & when
-        assertThatThrownBy(() -> movieRepository.findById("INCORRECT_ID").orElseThrow(MovieNotFoundException::new))
+        assertThatThrownBy(() -> movieRepository.findById("INCORRECT_ID").orElseThrow( () -> new MovieNotFoundException("")))
                 .isInstanceOf(MovieNotFoundException.class);
     }
 
@@ -128,7 +130,7 @@ public class MovieRepositoryShould {
         final var id = movieRepository.save(movie).getId();
 
         // when 
-        final var foundMovie = movieRepository.findById(id).orElseThrow(MovieNotFoundException::new);
+        final var foundMovie = movieRepository.findById(id).orElseThrow(() -> new MovieNotFoundException(id));
         foundMovie.setGenre("Comedy");
 
         final var result = movieRepository.save(foundMovie);

@@ -43,6 +43,7 @@ subprojects {
         compile("org.springframework:spring-context")
 
         compile("javax.validation:validation-api:2.0.1.Final")
+        compile("io.vavr:vavr:0.10.2")
 
         compile("org.mapstruct:mapstruct:$mapstructVersion")
         annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVersion")
@@ -50,7 +51,6 @@ subprojects {
         compileOnly("org.projectlombok:lombok:$lombokVersion")
         annotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
-//        testImplementation("junit:junit:4.12")
         testImplementation("org.springframework.boot:spring-boot-starter-test") {
             exclude("org.junit.vintage", "junit-vintage-engine")
         }

@@ -25,11 +25,11 @@ public class MovieServiceImpl implements MovieService {
     public MovieDetails getMovie(String id) {
         return movieRepository.findById(id)
                 .map(movieMapper::toMovieDetails)
-                .orElseThrow(MovieNotFoundException::new);
+                .orElseThrow(() -> new MovieNotFoundException(id));
     }
 
     private Movie getMovieById(String id) {
-        return movieRepository.findById(id).orElseThrow(MovieNotFoundException::new);
+        return movieRepository.findById(id).orElseThrow(() -> new MovieNotFoundException(id));
     }
 
     @Override
@@ -42,7 +42,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void addMovieRank(MovieRankAddition movieRankAddition, String movieId) {
-        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieNotFoundException::new);
+        Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new MovieNotFoundException(movieId));
         movie.setRank(movieRankAddition.getRank());
         movieRepository.save(movie);
     }

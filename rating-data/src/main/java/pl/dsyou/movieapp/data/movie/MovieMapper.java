@@ -1,5 +1,6 @@
 package pl.dsyou.movieapp.data.movie;
 
+import io.vavr.control.Try;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -12,7 +13,6 @@ import pl.dsyou.movieapp.data.movie.dto.MovieUpdate;
 import pl.dsyou.movieapp.data.movie.exception.MovieDateParseException;
 import pl.dsyou.movieapp.data.movie.mongo.model.movie.Movie;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -41,15 +41,12 @@ public abstract class MovieMapper {
     @Mapping(target = "genre", source = "genre")
     @Mapping(target = "productionDate", source = "productionDate")
     @Mapping(target = "rank", ignore = true)
-    public abstract void toMovie(MovieUpdate movieUpdate ,@MappingTarget Movie movie);
+    public abstract void toMovie(MovieUpdate movieUpdate, @MappingTarget Movie movie);
 
     @SuppressWarnings("unused")
     public Date productionDateFromString(String productionDate) {
-        try { // todo dj go to vavr !
-            return new SimpleDateFormat("dd-MM-yyyy").parse(productionDate);
-        } catch (ParseException ex) {
-           throw new MovieDateParseException();
-        }
+        return Try.of(() -> new SimpleDateFormat("dd-MM-yyyy").parse(productionDate))
+                .getOrElseThrow(() -> new MovieDateParseException(productionDate));
     }
 
     @SuppressWarnings("unused")
