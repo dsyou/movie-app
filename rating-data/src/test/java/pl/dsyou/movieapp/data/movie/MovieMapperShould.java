@@ -5,9 +5,11 @@ import pl.dsyou.movieapp.data.movie.dto.MovieDetails;
 import pl.dsyou.movieapp.data.movie.dto.MovieRegistration;
 import pl.dsyou.movieapp.data.movie.dto.MovieUpdate;
 import pl.dsyou.movieapp.data.movie.mongo.model.movie.Movie;
+import pl.dsyou.movieapp.data.movie.mongo.model.movie.MovieRating;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,7 +18,7 @@ public class MovieMapperShould {
     private String title = "Matrix";
     private String genre = "Action";
     private String productionDate = "01-01-1999";
-    private float rank = 9.14f;
+    private MovieRating rank = new MovieRating(9.14f, Collections.singletonList(9.14f));
 
     private MovieMapper movieMapper = MovieMapper.INSTANCE;
 
@@ -27,7 +29,7 @@ public class MovieMapperShould {
                 .title(title)
                 .genre(genre)
                 .productionDate(new SimpleDateFormat("dd-MM-yyyy").parse(productionDate))
-                .rank(rank)
+                .movieRating(rank)
                 .build();
 
         // when
@@ -37,7 +39,7 @@ public class MovieMapperShould {
         assertThat(movieDetails.getTitle()).isEqualTo(title);
         assertThat(movieDetails.getGenre()).isEqualTo(genre);
         assertThat(movieDetails.getProductionDate()).isEqualTo(productionDate);
-        assertThat(movieDetails.getRank()).isEqualTo(rank);
+        assertThat(movieDetails.getScore()).isEqualTo(rank.getScore());
     }
 
     @Test
@@ -52,7 +54,6 @@ public class MovieMapperShould {
         assertThat(result.getTitle()).isEqualTo(title);
         assertThat(result.getGenre()).isEqualTo(genre);
         assertThat(result.getProductionDate()).isEqualTo(new SimpleDateFormat("dd-MM-yyyy").parse(productionDate));
-        assertThat(result.getRank()).isEqualTo(0);
     }
 
     @Test
@@ -62,7 +63,7 @@ public class MovieMapperShould {
                 .title(title)
                 .genre(genre)
                 .productionDate(new SimpleDateFormat("dd-MM-yyyy").parse(productionDate))
-                .rank(rank)
+                .movieRating(rank)
                 .build();
 
         var movieUpdate = new MovieUpdate("Ice Age", "Animation", "01-01-2002");
@@ -74,7 +75,7 @@ public class MovieMapperShould {
         assertThat(movie.getTitle()).isEqualTo("Ice Age");
         assertThat(movie.getGenre()).isEqualTo("Animation");
         assertThat(movie.getProductionDate()).isEqualTo(new SimpleDateFormat("dd-MM-yyyy").parse("01-01-2002"));
-        assertThat(movie.getRank()).isEqualTo(rank);
+        assertThat(movie.getMovieRating().getScore()).isEqualTo(rank.getScore());
     }
 
 }

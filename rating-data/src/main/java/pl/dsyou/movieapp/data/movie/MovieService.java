@@ -12,7 +12,7 @@ public interface MovieService {
 
     MovieDetails getMovie(String id);
 
-    void addMovieRank(MovieRankAddition movieRankAddition, String id);
+    float addMovieRank(MovieRankAddition movieRankAddition, String id);
 
     MovieDetails createMovie(MovieRegistration movieRegistration);
 

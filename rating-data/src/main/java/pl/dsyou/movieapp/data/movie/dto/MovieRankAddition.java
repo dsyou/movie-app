@@ -13,8 +13,7 @@ import javax.validation.constraints.Min;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MovieRankAddition {
-
-    @Min(0)
+    @Min(1)
     @Max(10)
     private float rank;
 }

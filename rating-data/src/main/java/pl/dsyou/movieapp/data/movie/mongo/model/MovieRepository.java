@@ -1,4 +1,4 @@
-package pl.dsyou.movieapp.data.movie.mongo;
+package pl.dsyou.movieapp.data.movie.mongo.model;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

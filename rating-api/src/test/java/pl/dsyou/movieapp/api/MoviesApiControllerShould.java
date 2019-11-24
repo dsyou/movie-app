@@ -64,7 +64,7 @@ public class MoviesApiControllerShould {
                 .andExpect(jsonPath("$.title").value("Matrix"))
                 .andExpect(jsonPath("$.genre").value("Action"))
                 .andExpect(jsonPath("$.productionDate").value("01-01-1999"))
-                .andExpect(jsonPath("$.rank").value(0.1));
+                .andExpect(jsonPath("$.score").value(0.1));
     }
 
     @Test
@@ -84,19 +84,19 @@ public class MoviesApiControllerShould {
                 .andExpect(jsonPath("$[0].title").value("Matrix I"))
                 .andExpect(jsonPath("$[0].genre").value("Action"))
                 .andExpect(jsonPath("$[0].productionDate").value("01-01-1999"))
-                .andExpect(jsonPath("$[0].rank").value(10f))
+                .andExpect(jsonPath("$[0].score").value(10f))
                 // movie-2
                 .andExpect(jsonPath("$[1].id").value("2"))
                 .andExpect(jsonPath("$[1].title").value("Matrix II"))
                 .andExpect(jsonPath("$[1].genre").value("Comedy"))
                 .andExpect(jsonPath("$[1].productionDate").value("01-20-2000"))
-                .andExpect(jsonPath("$[1].rank").value(8f))
+                .andExpect(jsonPath("$[1].score").value(8f))
                 // movie-3
                 .andExpect(jsonPath("$[2].id").value("3"))
                 .andExpect(jsonPath("$[2].title").value("Matrix III"))
                 .andExpect(jsonPath("$[2].genre").value("Fable"))
                 .andExpect(jsonPath("$[2].productionDate").value("01-30-2002"))
-                .andExpect(jsonPath("$[2].rank").value(7f));
+                .andExpect(jsonPath("$[2].score").value(7f));
     }
 
     @Test
@@ -119,7 +119,7 @@ public class MoviesApiControllerShould {
                 .andExpect(jsonPath("$.title").value("Matrix II"))
                 .andExpect(jsonPath("$.genre").value("Action"))
                 .andExpect(jsonPath("$.productionDate").value("01-01-1999"))
-                .andExpect(jsonPath("$.rank").value(0.1));
+                .andExpect(jsonPath("$.score").value(0.1));
     }
 
     @Test
@@ -142,7 +142,7 @@ public class MoviesApiControllerShould {
                 .andExpect(jsonPath("$.title").value("Matrix II"))
                 .andExpect(jsonPath("$.genre").value("Action"))
                 .andExpect(jsonPath("$.productionDate").value("01-01-1999"))
-                .andExpect(jsonPath("$.rank").value(0.1));
+                .andExpect(jsonPath("$.score").value(0.1));
     }
 
     @Test

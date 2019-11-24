@@ -28,19 +28,19 @@ public abstract class MovieMapper {
     @Mapping(target = "title", source = "title")
     @Mapping(target = "genre", source = "genre")
     @Mapping(target = "productionDate", source = "productionDate")
-    @Mapping(target = "rank", source = "rank", defaultValue = "0")
+    @Mapping(target = "score", source = "movieRating.score", defaultValue = "0")
     public abstract MovieDetails toMovieDetails(Movie movie);
 
     @Mapping(target = "title", source = "title")
     @Mapping(target = "genre", source = "genre")
     @Mapping(target = "productionDate", source = "productionDate")
-    @Mapping(target = "rank", ignore = true)
+    @Mapping(target = "movieRating", ignore = true)
     public abstract Movie toMovie(MovieRegistration movieRegistration);
 
     @Mapping(target = "title", source = "title")
     @Mapping(target = "genre", source = "genre")
     @Mapping(target = "productionDate", source = "productionDate")
-    @Mapping(target = "rank", ignore = true)
+    @Mapping(target = "movieRating", ignore = true)
     public abstract void toMovie(MovieUpdate movieUpdate, @MappingTarget Movie movie);
 
     @SuppressWarnings("unused")

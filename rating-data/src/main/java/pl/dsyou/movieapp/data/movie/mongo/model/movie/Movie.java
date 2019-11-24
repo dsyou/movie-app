@@ -1,15 +1,16 @@
 package pl.dsyou.movieapp.data.movie.mongo.model.movie;
 
 import lombok.*;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pl.dsyou.movieapp.data.movie.mongo.model.core.MongoEntity;
 
 import java.util.Date;
 
 @Document
-@Builder
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Movie extends MongoEntity {
@@ -19,5 +20,5 @@ public class Movie extends MongoEntity {
 
     private Date productionDate;
 
-    private float rank;
+    private MovieRating movieRating;
 }
