@@ -27,19 +27,20 @@ configure<JavaPluginConvention> {
     targetCompatibility = JavaVersion.VERSION_13
 }
 
+
+//export test coverage
+tasks.jacocoTestReport {
+    reports {
+        xml.isEnabled = false
+        csv.isEnabled = false
+        html.destination = file("${buildDir}/jacocoHtml")
+    }
+}
+
 subprojects {
     tasks.withType<JavaCompile> {
         sourceCompatibility = "13"
         targetCompatibility = "13"
-    }
-
-    //export test coverage
-    tasks.jacocoTestReport {
-        reports {
-            xml.isEnabled = false
-            csv.isEnabled = false
-            html.destination = file("${buildDir}/jacocoHtml")
-        }
     }
 
     group = "pl.dsyou"
