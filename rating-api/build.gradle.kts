@@ -2,6 +2,7 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     id("java")
+    id("jacoco")
     id("io.spring.dependency-management")
     id("org.springframework.boot")
 }

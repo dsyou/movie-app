@@ -47,15 +47,15 @@ tasks.jacocoTestReport {
     dependsOn("test")
 }
 
+tasks.test {
+    useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
+}
+
 subprojects {
     tasks.withType<JavaCompile> {
         sourceCompatibility = "13"
         targetCompatibility = "13"
-    }
-
-    tasks.test {
-        useJUnitPlatform()
-        finalizedBy(tasks.jacocoTestReport)
     }
 
     group = "pl.dsyou"
