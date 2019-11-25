@@ -30,11 +30,20 @@ configure<JavaPluginConvention> {
 
 //export test coverage
 tasks.jacocoTestReport {
+
+    executionData(fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec"))
+
+    subprojects.onEach {
+        sourceSets(it.sourceSets["main"])
+    }
+
     reports {
         xml.isEnabled = false
         csv.isEnabled = false
         html.destination = file("${buildDir}/jacocoHtml")
     }
+
+    dependsOn("test")
 }
 
 subprojects {
