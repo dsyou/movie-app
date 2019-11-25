@@ -1,7 +1,6 @@
 package pl.dsyou.movieapp.data.movie.mongo.model.movie;
 
 import lombok.*;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import pl.dsyou.movieapp.data.movie.mongo.model.core.MongoEntity;
 

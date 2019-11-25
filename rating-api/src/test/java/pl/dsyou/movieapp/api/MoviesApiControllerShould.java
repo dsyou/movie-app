@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.dsyou.movieapp.data.movie.MovieService;
 import pl.dsyou.movieapp.data.movie.dto.MovieDetails;
+import pl.dsyou.movieapp.data.movie.dto.MovieRankAddition;
 import pl.dsyou.movieapp.data.movie.dto.MovieRegistration;
 import pl.dsyou.movieapp.data.movie.dto.MovieUpdate;
 
@@ -159,8 +160,21 @@ public class MoviesApiControllerShould {
         verify(movieService, times(1)).deleteMovie(id);
     }
 
-//    @Test
-//    void addMovieRank() {
-//        // todo dj
-//    }
+    @Test
+    void addMovieRank() throws Exception {
+        // given
+        String id = "5dc9b360a69bf4138ed4a6ce";
+        final var request = new MovieRankAddition(1.11f);
+        when(movieService.addMovieRank(request, id)).thenReturn(8.71f);
+
+        // when
+        mockMvc.perform(post(URI + "/{id}/ranks", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+                // then
+                .andExpect(status().isOk())
+                .andExpect(content().string("8.71"));
+    }
+
 }

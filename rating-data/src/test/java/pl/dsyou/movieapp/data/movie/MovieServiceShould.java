@@ -1,12 +1,12 @@
 package pl.dsyou.movieapp.data.movie;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.dsyou.movieapp.data.movie.dto.MovieDetails;
+import pl.dsyou.movieapp.data.movie.dto.MovieRankAddition;
 import pl.dsyou.movieapp.data.movie.dto.MovieRegistration;
 import pl.dsyou.movieapp.data.movie.dto.MovieUpdate;
 import pl.dsyou.movieapp.data.movie.mongo.model.MovieRepository;
@@ -15,10 +15,7 @@ import pl.dsyou.movieapp.data.movie.mongo.model.movie.MovieRating;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -73,16 +70,22 @@ public class MovieServiceShould {
     }
 
     @Test
-    @Disabled
-    public void addMovieRank() {
+    public void addMovieRank() throws ParseException {
         // given
+        String id = "97756511-47df-43be-86ea-1884a86ea7db";
+        final var productionDate = new SimpleDateFormat("dd-MM-yyyy").parse("01-01-2002");
+
+        var movieRating = new MovieRating(10f, new ArrayList<>(Arrays.asList(0f, 10f, 8f, 7f)));
+        var movie = new Movie("Ice Age", "Animation", productionDate, movieRating);
+
+        when(movieRepository.findById(id)).thenReturn(Optional.of(movie));
+        var movieRankAddition = new MovieRankAddition(6.71f);
 
         // when
-        // todo arithmetic mean
-        // check size on ranks , add a few values and count for them
-        // check new value of score
+        final float score = movieService.addMovieRank(movieRankAddition, id);
 
         // then
+        assertThat(score).isEqualTo(7.93f);
     }
 
     @Test
