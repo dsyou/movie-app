@@ -22,14 +22,14 @@ allprojects {
 }
 
 configure<JavaPluginConvention> {
-    sourceCompatibility = JavaVersion.VERSION_12
-    targetCompatibility = JavaVersion.VERSION_12
+    sourceCompatibility = JavaVersion.VERSION_13
+    targetCompatibility = JavaVersion.VERSION_13
 }
 
 subprojects {
     tasks.withType<JavaCompile> {
-        sourceCompatibility = "12"
-        targetCompatibility = "12"
+        sourceCompatibility = "13"
+        targetCompatibility = "13"
     }
 
     group = "pl.dsyou"
