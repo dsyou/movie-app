@@ -53,6 +53,11 @@ subprojects {
         targetCompatibility = "13"
     }
 
+    tasks.test {
+        useJUnitPlatform()
+        finalizedBy(tasks.jacocoTestReport)
+    }
+
     group = "pl.dsyou"
     version = "1.0"
     apply(plugin = "java")
