@@ -1,6 +1,8 @@
 package pl.dsyou.movieapp.data.movie;
 
+import io.vavr.control.Option;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.dsyou.movieapp.data.movie.dto.MovieDetails;
 import pl.dsyou.movieapp.data.movie.dto.MovieRankAddition;
@@ -15,10 +17,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class MovieServiceImpl implements MovieService {
@@ -28,6 +29,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public MovieDetails getMovie(String id) {
+        log.info("Accessing movie by id: {}", id);
         return movieRepository.findById(id)
                 .map(movieMapper::toMovieDetails)
                 .orElseThrow(() -> new MovieNotFoundException(id));
@@ -39,6 +41,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<MovieDetails> getMovies() {
+        log.info("Accessing all movies");
         return movieRepository.findAll()
                 .stream()
                 .map(movieMapper::toMovieDetails)
@@ -47,6 +50,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public float addMovieRank(MovieRankAddition movieRankAddition, String movieId) {
+        log.info("Adding rank:{} to movie with id:{}", movieRankAddition.getRank(), movieId);
         Movie movie = movieRepository.findById(movieId).orElseThrow(() -> new MovieNotFoundException(movieId));
         MovieRating movieRating = movie.getMovieRating();
 
@@ -59,6 +63,7 @@ public class MovieServiceImpl implements MovieService {
         } else {
             sumOfMovieRanks = countAverageOfMovieRanks(ranks);
         }
+        log.debug("Calculated arithmetic average:{} , for movie with id:{}", sumOfMovieRanks, movieId);
         float roundedSumOfMovieRanks = round(sumOfMovieRanks, 2);
 
         movieRating.setScore(roundedSumOfMovieRanks);
@@ -81,24 +86,28 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public MovieDetails createMovie(MovieRegistration movieRegistration) {
+        log.info("Creating new movie with title:{}", movieRegistration.getTitle());
         Movie movie = movieMapper.toMovie(movieRegistration);
         movie.setMovieRating(new MovieRating(0, Collections.singletonList(0f)));
-        return Optional.of(movieRepository.save(movie))
+
+        return Option.of(movieRepository.save(movie))
                 .map(movieMapper::toMovieDetails).get();
     }
 
     @Override
     public MovieDetails editMovie(MovieUpdate movieUpdate, String id) {
+        log.info("Editing movie with id:{}", id);
         Movie movie = getMovieById(id);
         movieMapper.toMovie(movieUpdate, movie);
 
-        return Optional.of(movieRepository.save(movie))
+        return Option.of(movieRepository.save(movie))
                 .map(movieMapper::toMovieDetails)
                 .get();
     }
 
     @Override
     public void deleteMovie(String movieId) {
+        log.info("Deleting movie with id:{}", movieId);
         movieRepository.deleteById(movieId);
     }
 
