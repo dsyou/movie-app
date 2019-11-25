@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/dsyou/movie-app/tree/master.svg?style=svg)](https://circleci.com/gh/dsyou/movie-app/tree/master)
 # movie-app
 Rating Service
 
