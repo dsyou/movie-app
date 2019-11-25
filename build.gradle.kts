@@ -3,6 +3,7 @@ import org.gradle.kotlin.dsl.*
 plugins {
     java
     idea
+    jacoco
     id("io.spring.dependency-management") version "1.0.8.RELEASE"
     id("org.springframework.boot") version "2.2.0.RELEASE" apply false
     id("net.ltgt.apt") version "0.21"
@@ -32,12 +33,22 @@ subprojects {
         targetCompatibility = "13"
     }
 
+    //export test coverage
+    tasks.jacocoTestReport {
+        reports {
+            xml.isEnabled = false
+            csv.isEnabled = false
+            html.destination = file("${buildDir}/jacocoHtml")
+        }
+    }
+
     group = "pl.dsyou"
     version = "1.0"
     apply(plugin = "java")
     apply(plugin = "net.ltgt.apt")
     apply(plugin = "io.spring.dependency-management")
     apply(plugin = "org.springframework.boot")
+    apply(plugin = "jacoco")
 
     dependencies {
         compile("org.springframework:spring-context")
@@ -59,8 +70,8 @@ subprojects {
         testCompile("org.mockito:mockito-core:3.1.0")
         testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo")
     }
-}
 
+}
 
 repositories {
     mavenCentral()
